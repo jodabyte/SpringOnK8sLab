@@ -1,0 +1,21 @@
+version: "3"
+
+tasks:
+  start:
+    cmds:
+      - minikube start --namespace {{.NAMESPACE}}
+  stop:
+    cmds:
+      - minikube stop
+  delete-cluster:
+    cmds:
+      - minikube delete
+  create-cluster:
+    cmds:
+      - minikube config set cpus 8
+      - minikube config set memory 7168
+      - minikube start --namespace {{.NAMESPACE}}
+      - kubectl create namespace {{.NAMESPACE}}
+  link-docker-env:
+    cmds:
+      - eval $(minikube docker-env)

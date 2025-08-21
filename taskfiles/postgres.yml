@@ -1,0 +1,20 @@
+version: "3"
+
+tasks:
+  deploy:
+    requires:
+      vars: [POSTGRES_PASSWORD]
+    cmds:
+      - kubectl create secret generic postgres-secret -n {{.NAMESPACE}} --from-literal=POSTGRES_USER=postgres --from-literal=POSTGRES_PASSWORD='{{.POSTGRES_PASSWORD}}'
+      - kubectl apply -f ConfigMap.yml
+      - kubectl apply -f PersistentVolume.yml
+      - kubectl apply -f StatefulSet.yml
+  delete:
+    cmds:
+      - kubectl delete -f StatefulSet.yml
+      - kubectl delete -f PersistentVolume.yml
+      - kubectl delete -f ConfigMap.yml
+      - kubectl delete secret postgres-secret -n {{.NAMESPACE}}
+  port-forward:
+    cmds:
+      - kubectl port-forward svc/postgres 5432:5432 -n {{.NAMESPACE}}

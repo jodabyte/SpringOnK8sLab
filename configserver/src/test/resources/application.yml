@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:tc:postgresql:17:///app_config
+  sql:
+    init:
+      mode: always
+
+  profiles:
+    active: jdbc

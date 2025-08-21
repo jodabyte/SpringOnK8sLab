@@ -1,0 +1,16 @@
+# https://taskfile.dev
+
+version: "3"
+
+vars:
+  TASKFILES_DIR: "./taskfiles"
+  NAMESPACE: odins-oddities
+
+includes:
+  minikube:
+    taskfile: "{{.TASKFILES_DIR}}/minikube.yml"
+  postgres:
+    taskfile: "{{.TASKFILES_DIR}}/postgres.yml"
+    dir: "./k8s/PostgreSQL"
+  confifg-server:
+    taskfile: "{{.TASKFILES_DIR}}/config-server.yml"
