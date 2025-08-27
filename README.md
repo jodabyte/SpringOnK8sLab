@@ -18,6 +18,14 @@ Deploy PostgreSQL: `task postgres:deploy POSTGRES_PASSWORD=<password>`
 4. Create the config with the user credentials from step 1: `task confifg-server:create-config POSTGRES_USER=<user> POSTGRES_PASSWORD=<password>`
 5. Deploy app: `task confifg-server:deploy-app`
 
+## Product Service
+
+1. Create an user in PostgreSQL
+2. Create a database in PostgreSQL, with the same name `odins_oddities`
+3. Build-Image: `task minikube:link-docker-env && task product-service:build-image`
+4. Create the config with the user credentials from step 1: `task product-service:create-config POSTGRES_USER=<user> POSTGRES_PASSWORD=<password>`
+5. Deploy app: `task product-service:deploy-app`
+
 # Local/Dev Environment
 
 ## Access Services

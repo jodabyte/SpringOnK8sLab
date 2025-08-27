@@ -1,19 +1,19 @@
 version: "3"
 
 vars:
-  K8S_DIR: "./k8s/Config-Server"
-  PROJECT_DIR: "./configserver"
+  K8S_DIR: "./k8s/Product-Service"
+  PROJECT_DIR: "./product-service"
 
 tasks:
   port-forward:
     cmds:
-      - kubectl port-forward svc/config-server 8888:8888 -n {{.NAMESPACE}}
+      - kubectl port-forward svc/product-service 8081:8081 -n {{.NAMESPACE}}
   create-config:
     requires:
       vars: [POSTGRES_USER, POSTGRES_PASSWORD]
     dir: "{{.K8S_DIR}}"
     cmds:
-      - kubectl create secret generic config-server-secret -n {{.NAMESPACE}} --from-literal=POSTGRES_USER='{{.POSTGRES_USER}}' --from-literal=POSTGRES_PASSWORD='{{.POSTGRES_PASSWORD}}'
+      - kubectl create secret generic product-service-secret -n {{.NAMESPACE}} --from-literal=POSTGRES_USER='{{.POSTGRES_USER}}' --from-literal=POSTGRES_PASSWORD='{{.POSTGRES_PASSWORD}}'
       - kubectl apply -f ConfigMap.yml
   deploy-app:
     dir: "{{.K8S_DIR}}"
@@ -26,7 +26,7 @@ tasks:
   build-image:
     dir: "{{.PROJECT_DIR}}"
     cmds:
-      - ./mvnw spring-boot:build-image
+      - ./mvnw -DskipTests=true spring-boot:build-image
   delete-build-deploy:
     cmds:
       - task: delete-app

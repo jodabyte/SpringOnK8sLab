@@ -18,4 +18,4 @@ tasks:
       - kubectl create namespace {{.NAMESPACE}}
   link-docker-env:
     cmds:
-      - eval $(minikube docker-env)
+      - eval $(minikube -p minikube docker-env)

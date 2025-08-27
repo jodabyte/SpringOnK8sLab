@@ -1,43 +1,43 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: config-server
+  name: product-service
   namespace: odins-oddities
   labels:
-    app: config-server
+    app: product-service
 spec:
   selector:
-    app: config-server
+    app: product-service
   ports:
-    - port: 8888
+    - port: 8081
   type: ClusterIP
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: config-server-deployment
+  name: product-service-deployment
   namespace: odins-oddities
   labels:
-    app: config-server
+    app: product-service
 spec:
   selector:
     matchLabels:
-      app: config-server
+      app: product-service
   replicas: 1
   template:
     metadata:
       namespace: odins-oddities
       labels:
-        app: config-server
+        app: product-service
     spec:
       containers:
-        - name: config-server
-          image: configserver:0.0.1-SNAPSHOT
+        - name: product-service
+          image: product-service:0.0.1-SNAPSHOT
           imagePullPolicy: Never
           ports:
-            - containerPort: 8888
+            - containerPort: 8081
           envFrom:
             - configMapRef:
-                name: config-server-config
+                name: product-service-config
             - secretRef:
-                name: config-server-secret
+                name: product-service-secret

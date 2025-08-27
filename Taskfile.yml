@@ -14,3 +14,5 @@ includes:
     dir: "./k8s/PostgreSQL"
   confifg-server:
     taskfile: "{{.TASKFILES_DIR}}/config-server.yml"
+  product-service:
+    taskfile: "{{.TASKFILES_DIR}}/product-service.yml"
