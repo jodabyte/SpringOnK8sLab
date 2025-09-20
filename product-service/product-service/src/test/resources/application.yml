@@ -1,0 +1,10 @@
+spring:
+  config:
+    import: "optional:configserver:"
+  
+  datasource:
+    url: jdbc:tc:postgresql:17:///odins_oddities_test
+  
+  jpa:
+    hibernate:
+      ddl-auto: create

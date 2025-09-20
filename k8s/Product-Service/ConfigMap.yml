@@ -7,3 +7,4 @@ metadata:
     app: product-service
 data:
   CONFIG_SERVER_URI: http://config-server:8888
+  SPRING_PROFILES_ACTIVE: k8s

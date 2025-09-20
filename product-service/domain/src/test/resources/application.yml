@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: jdbc:tc:postgresql:17:///odins_oddities_test
+
+  jpa:
+    hibernate:
+      ddl-auto: create

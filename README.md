@@ -22,11 +22,32 @@ Deploy PostgreSQL: `task postgres:deploy POSTGRES_PASSWORD=<password>`
 
 1. Create an user in PostgreSQL
 2. Create a database in PostgreSQL, with the same name `odins_oddities`
-3. Build-Image: `task minikube:link-docker-env && task product-service:build-image`
+3. Build-Image: `task minikube:link-docker-env && ./mvnw clean install && task product-service:build-image`
 4. Create the config with the user credentials from step 1: `task product-service:create-config POSTGRES_USER=<user> POSTGRES_PASSWORD=<password>`
 5. Deploy app: `task product-service:deploy-app`
 
 # Local/Dev Environment
+
+## Product Service
+
+1. Create .env file:
+```
+CONFIG_SERVER_URI=http://localhost:8888
+SPRING_PROFILES_ACTIVE=local
+POSTGRES_USER=<user>
+POSTGRES_PASSWORD=<password>
+```
+2. Add `"envFile": "${workspaceFolder}/.env"` to `.vscode/launch.json`:
+```
+{
+    "type": "java",
+    "name": "ProductServiceApplication",
+    "request": "launch",
+    "mainClass": "productservice/de.jodabyte.springonk8slab.productservice.ProductServiceApplication",
+    "projectName": "product-service",
+    "envFile": "${workspaceFolder}/.env"
+}
+```
 
 ## Access Services
 

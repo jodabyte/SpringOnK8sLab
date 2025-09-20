@@ -3,6 +3,7 @@ version: "3"
 vars:
   K8S_DIR: "./k8s/Product-Service"
   PROJECT_DIR: "./product-service"
+  PRODUCT_SERVICE_DIR: "./product-service/product-service"
 
 tasks:
   port-forward:
@@ -24,7 +25,7 @@ tasks:
     cmds:
       - kubectl delete -f Deployment.yml
   build-image:
-    dir: "{{.PROJECT_DIR}}"
+    dir: "{{.PRODUCT_SERVICE_DIR}}/"
     cmds:
       - ./mvnw -DskipTests=true spring-boot:build-image
   delete-build-deploy:
@@ -32,3 +33,7 @@ tasks:
       - task: delete-app
       - task: build-image
       - task: deploy-app
+  remove-project-artifact:
+    dir: "{{.PROJECT_DIR}}/"
+    cmds:
+      - ./mvnw build-helper:remove-project-artifact
