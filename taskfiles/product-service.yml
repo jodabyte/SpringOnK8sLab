@@ -27,7 +27,7 @@ tasks:
   build-image:
     dir: "{{.PRODUCT_SERVICE_DIR}}/"
     cmds:
-      - ./mvnw -DskipTests=true spring-boot:build-image
+      - eval $(minikube -p minikube docker-env) && ./mvnw -DskipTests=true spring-boot:build-image
   delete-build-deploy:
     cmds:
       - task: delete-app
@@ -37,3 +37,9 @@ tasks:
     dir: "{{.PROJECT_DIR}}/"
     cmds:
       - ./mvnw build-helper:remove-project-artifact
+  generate-openapi-spec:
+    dir: "{{.PROJECT_DIR}}"
+    dotenv: ["../.env"]
+    cmds:
+      - ./mvnw clean verify
+      - cp ../OpenAPI/product-service.yml ../event-generator/src/main/resources/api/product-service-api.yml

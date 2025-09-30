@@ -7,12 +7,14 @@ vars:
   NAMESPACE: odins-oddities
 
 includes:
+  config-server:
+    taskfile: "{{.TASKFILES_DIR}}/config-server.yml"
+  event-generator:
+    taskfile: "{{.TASKFILES_DIR}}/event-generator.yml"
   minikube:
     taskfile: "{{.TASKFILES_DIR}}/minikube.yml"
   postgres:
     taskfile: "{{.TASKFILES_DIR}}/postgres.yml"
     dir: "./k8s/PostgreSQL"
-  config-server:
-    taskfile: "{{.TASKFILES_DIR}}/config-server.yml"
   product-service:
     taskfile: "{{.TASKFILES_DIR}}/product-service.yml"

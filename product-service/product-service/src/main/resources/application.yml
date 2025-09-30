@@ -7,4 +7,10 @@ spring:
 
   config:
     import: configserver:${CONFIG_SERVER_URI}
-    
+
+springdoc:
+  default-produces-media-type: application/json
+  writer-with-default-pretty-printer: true
+  api-docs:
+    version: OPENAPI_3_0
+

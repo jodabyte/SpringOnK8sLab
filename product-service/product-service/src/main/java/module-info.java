@@ -4,7 +4,7 @@ module productservice {
     opens de.jodabyte.springonk8slab.productservice.controller to spring.beans, spring.core, spring.web;
 
     requires domain;
-
+    requires io.swagger.v3.oas.annotations;
     requires java.instrument;
     requires spring.beans;
     requires spring.boot;
