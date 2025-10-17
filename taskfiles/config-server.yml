@@ -7,7 +7,7 @@ vars:
 tasks:
   port-forward:
     cmds:
-      - kubectl port-forward svc/config-server 8888:8888 -n {{.NAMESPACE}}
+      - kubectl port-forward --address 0.0.0.0 svc/config-server 8888:8888 -n {{.NAMESPACE}}
   create-config:
     requires:
       vars: [POSTGRES_USER, POSTGRES_PASSWORD]

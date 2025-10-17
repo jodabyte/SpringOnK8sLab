@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: config-server-monitor
+  namespace:
+  labels:
+    release: kube-prometheus
+spec:
+  selector:
+    matchLabels:
+      monitoring: prometheus
+  endpoints:
+    - port: app
+      path: /actuator/prometheus
+      interval: 15s

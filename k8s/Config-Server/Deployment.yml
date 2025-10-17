@@ -5,11 +5,13 @@ metadata:
   namespace: odins-oddities
   labels:
     app: config-server
+    monitoring: prometheus
 spec:
   selector:
     app: config-server
   ports:
-    - port: 8888
+    - name: app
+      port: 8888
   type: ClusterIP
 ---
 apiVersion: apps/v1
@@ -35,7 +37,8 @@ spec:
           image: configserver:0.0.1-SNAPSHOT
           imagePullPolicy: Never
           ports:
-            - containerPort: 8888
+            - name: app
+              containerPort: 8888
           envFrom:
             - configMapRef:
                 name: config-server-config

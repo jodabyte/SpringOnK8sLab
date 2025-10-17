@@ -32,6 +32,16 @@ Deploy PostgreSQL: `task postgres:deploy POSTGRES_PASSWORD=<password>`
 2. Create the config with the user credentials from step 1: `task event-generator:create-config`
 3. Deploy app: `task event-generator:deploy-app`
 
+## Kube-Prometheus
+
+Project: [Kube-Prometheus](https://prometheus-operator.dev/kube-prometheus/kube/access-ui/)
+
+1. Install using Helm Chart `helm install kube-prometheus oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack -n monitoring --create-namespace`
+2. Create a ServiceMonitor: `kubectl apply -f ./k8s/Prometheus/ServiceMonitor.yml`
+3. [Prometheus & Grafana Dashboards](https://prometheus-operator.dev/kube-prometheus/kube/access-ui/) can be accessed with:
+    - Prometheus: `kubectl --namespace monitoring port-forward svc/prometheus-operated 9090`
+    - Grafana: `kubectl --namespace monitoring port-forward svc/kube-prometheus-grafana 3000:80`
+
 # Local/Dev Environment
 
 ## Access Services
@@ -80,4 +90,4 @@ Open (Swagger UI)[http://localhost:8081/swagger-ui.html]
     "envFile": "${workspaceFolder}/.env"
 }
 ```
-3. Port-Forward Config Server and Product Service
+3. Port-Forward Config-Server and Product-Service

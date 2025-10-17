@@ -5,11 +5,13 @@ metadata:
   namespace: odins-oddities
   labels:
     app: product-service
+    monitoring: prometheus
 spec:
   selector:
     app: product-service
   ports:
-    - port: 8081
+    - name: app
+      port: 8081
   type: ClusterIP
 ---
 apiVersion: apps/v1
@@ -35,7 +37,8 @@ spec:
           image: product-service:0.0.1-SNAPSHOT
           imagePullPolicy: Never
           ports:
-            - containerPort: 8081
+            - name: app
+              containerPort: 8081
           envFrom:
             - configMapRef:
                 name: product-service-config

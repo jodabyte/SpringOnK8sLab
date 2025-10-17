@@ -5,11 +5,13 @@ metadata:
   namespace: odins-oddities
   labels:
     app: event-generator
+    monitoring: prometheus
 spec:
   selector:
     app: event-generator
   ports:
-    - port: 8082
+    - name: app
+      port: 8082
   type: ClusterIP
 ---
 apiVersion: apps/v1
@@ -35,7 +37,8 @@ spec:
           image: event-generator:0.0.1-SNAPSHOT
           imagePullPolicy: Never
           ports:
-            - containerPort: 8082
+            - name: app
+              containerPort: 8082
           envFrom:
             - configMapRef:
                 name: event-generator-config
