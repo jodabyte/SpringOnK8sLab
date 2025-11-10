@@ -10,7 +10,6 @@ import de.jodabyte.springonk8slab.productservice.domain.exception.OutOfStockExce
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
@@ -23,7 +22,7 @@ public class Product {
 
     @Id
     private String sku;
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Batch> batches = new ArrayList<>();
     @Column(nullable = false)
     @ColumnDefault("1")
